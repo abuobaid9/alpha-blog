@@ -1,0 +1,19 @@
+%h2.text-center.mt-4= @article.title
+.container
+  .row.justify-content-md-center
+    .col-8.mt-4
+      .card.text-center.shadow.mb-5.bg-white.rounded
+        .card-header.font-italic
+          by #{@article.user.username if @article.user}
+          \#{link_to gravatar_for(@article.user), user_path(@article.user)}
+          - if @article.categories.any?
+            .mt-2= render @article.categories
+        .card-body
+          .card-text.text-left= simple_format(@article.description)
+          - if logged_in? && (@article.user == current_user || current_user.admin?)
+            = link_to "Edit", edit_article_path(@article), class: "btn btn-outline-info"
+            = link_to "Delete", article_path(@article), class: "btn btn-outline-danger", method: :delete, data: {confirm: "Are you sure?"}
+        .card-footer.text-muted
+          %small
+            Created #{time_ago_in_words(@article.created_at)} ago,
+            edited #{time_ago_in_words(@article.updated_at)} ago

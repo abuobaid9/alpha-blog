@@ -1,0 +1,7 @@
+%h1.text-center.mt-4 Create a new category
+.container
+  .row.justify-content-center
+    .col-10
+      = render 'form'
+    .mb-3
+      = link_to '[ Cancel and return to categories listing ]', categories_path, class: "text-info"

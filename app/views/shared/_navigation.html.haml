@@ -1,0 +1,39 @@
+%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+  = link_to "ALPHA BLOG", root_path, class: "navbar-brand", id: "logo"
+  %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  #navbarSupportedContent.collapse.navbar-collapse
+    %ul.navbar-nav.mr-auto
+      %li.nav-item
+        = link_to "Bloggers", users_path, class: "nav-link"
+      %li.nav-item.dropdown
+        %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+          Articles
+        .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+          - if logged_in?
+            = link_to "Create new article", new_article_path, class: "dropdown-item"
+          = link_to "View articles", articles_path, class: "dropdown-item"
+      %li.nav-item.dropdown
+        %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+          Categories
+        .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+          - if logged_in? && current_user.admin?
+            = link_to "Create new category", new_category_path, class: "dropdown-item"
+          = link_to "View categories", categories_path, class: "dropdown-item"
+    %ul.navbar-nav.my-2.my-lg-0
+      - if logged_in?
+        %li.nav-item.dropdown.text-left
+          %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            = "(Admin)" if current_user.admin?
+            Profile [#{current_user.username}]
+          .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+            = link_to "View your profile", user_path(current_user), class: "dropdown-item"
+            = link_to "Edit your profile", edit_user_path(current_user), class: "dropdown-item"
+            = link_to "Delete profile", user_path(current_user), class: "dropdown-item text-danger", method: :delete, data: { confirm: "Are you sure?" }
+        %li.nav-item
+          = link_to 'Logout', logout_path, class: "nav-link", method: :delete
+      - else
+        %li.nav-item
+          = link_to 'Log in', login_path, class: "nav-link"
+        %li.nav-item
+          = link_to 'Sign up', signup_path, class: "nav-link"

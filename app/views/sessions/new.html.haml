@@ -1,0 +1,17 @@
+%h1.text-center.mt-4 Log in
+.container
+  .row.justify-content-center
+    .col-10
+      = simple_form_for(:session, url: login_path, html: {class: "shadow p-3 mb-3 bg-info rounded",  style: "background-color: #17a2b8;" }) do |f|
+        .form-group.row
+          = f.label :email, class: "col-2 col-form-label text-light"
+          .col-10
+            = f.email_field :email, class: "form-control shadow rounded", placeholder: "Enter your email address"
+        .form-group.row
+          = f.label :password, class: "col-2 col-form-label text-light"
+          .col-10
+            = f.password_field :password, class: "form-control shadow rounded", placeholder: "Enter your password"
+        .form-group.row.justify-content-center
+          = f.submit "Log in", class: "btn btn-outline-light btn-lg"
+    .mb-3
+      = link_to '[ Cancel and return to articles listing ]', articles_path, class: "text-info"
