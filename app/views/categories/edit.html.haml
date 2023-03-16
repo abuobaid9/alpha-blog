@@ -1,0 +1,7 @@
+%h1.text-center.mt-4 Edit category name
+.container
+  .row.justify-content-center
+    .col-10
+      = render 'form'
+    .mb-3
+      = link_to '[ Cancel and return to category ]', category_path(@category), class: "text-info"
